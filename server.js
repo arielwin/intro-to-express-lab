@@ -29,7 +29,14 @@ app.get('/greetings/:username', (req, res, next) => {
 
 // Roll Number
 app.get('/roll/:number', (req, res, next) => {
+    
+    if(req.params.number > 0){
 
+        res.send((`${Math.floor(Math.random(req.params.number) * req.params.number)}`)
+
+    )}else {
+        res.send(`You must specify a number.`)
+    }
 })
 
 // Collectibles
@@ -42,13 +49,14 @@ app.get('/collectibles/:index', (req, res, next) => {
 })
 
 // Queries
-app.get('/hello', (req, res) => {
-    res.send(`Hello there, ${req.query.name}! I hear you are ${req.query.age} years old!`);
-});
 
-app.get('/shoes', (req, res, next) => {
-
+app.get('/shoes', (req, res) => {
+    res.send(`${req.query.price}`)
 })
+
+
+
+
 
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`)
