@@ -51,7 +51,20 @@ app.get('/collectibles/:index', (req, res, next) => {
 // Queries
 
 app.get('/shoes', (req, res) => {
-    res.send(`${req.query.price}`)
+    const {'min-price': minPrice, 'max-price': maxPrice, type} = req.query
+    let filteredShoes = shoes
+    if (minPrice) {
+        filteredShoes = filteredShoes.filter(shoe => shoe.price= minPrice)
+    }
+    if (maxPrice) {
+        filteredShoes = filteredShoes.filter(shoe => shoe.price <= parseFloat(maxPrice))
+    }
+
+    if (type) {
+        filteredShoes = filteredShoes.filter(shoe => shoe.type === type)
+    }
+
+    res.json(filteredShoes)
 })
 
 
